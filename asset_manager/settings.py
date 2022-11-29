@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     #local
+    'user',
     'company',
     'employee',
     'asset',
