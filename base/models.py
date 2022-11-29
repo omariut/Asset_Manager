@@ -4,10 +4,6 @@ User = get_user_model()
 
 
 class BaseModel(models.Model):
-    class StatusChoices(models.TextChoices):
-        ACTIVE = 'active', _('active')
-        INACTIVE = 'inactive', _('inactive')
-        ARCHIVED = 'archived', _('archived')
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -18,4 +14,14 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
-        
+
+class ConditionChoices(models.TextChoices):
+    INTAKE = 'intake', ('intake')
+    USED_LIKE_NEW = 'used_like_new', ('used_like_new')
+    USED='used',('used')
+    DAMAGED_BUT_USEABLE='damage_but_useable',('damage_but_useable')
+
+class HandOverTypeChoices(models.TextChoices):
+    RETURN_TO_ADMIN = 'return_to_admin', ('return_to_admin')
+    HANDOVER_TO_EMPLOYEE='handover_to_employee',('handover_to_employee')
+

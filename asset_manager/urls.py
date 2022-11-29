@@ -40,6 +40,7 @@ v1_patterns = [
     path('company/', include('company.urls')),
     path('employee/', include('employee.urls')),
     path('asset/', include('employee.urls')),
+    path('user/', include('user.urls')),
 ]
 
 

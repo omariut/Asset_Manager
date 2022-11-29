@@ -64,7 +64,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'asset_manager.urls'
-
+AUTH_USER_MODEL = 'user.User'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -140,22 +140,22 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.DjangoModelPermissions',
     ),
-
+    'DEFAULT_RENDERER_CLASSES': (
+        'asset_manager.apis.renderers.DefaultRenderer',
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ),
     
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
-    'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler',
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
 
-    'DEFAULT_FILTER_BACKENDS': (
-        #'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.SearchFilter',
-        'rest_framework.filters.OrderingFilter',
-    )
 }
+
+# if DEBUG:
+#     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] + (
+#         'asset_manager.apis.renderers.OnlyRawBrowsableAPIRenderer',
+#     )
 MEDIA_ROOT =  os.path.join(settings.BASE_DIR, 'media')
 MEDIA_URL = '/media/'
