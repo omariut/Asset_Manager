@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'asset',
 ]
 
+if DEBUG:
+    INSTALLED_APPS += [ 'drf_yasg',]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -130,3 +133,27 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissions',
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        
+    ),
+    
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler',
+
+    'DEFAULT_FILTER_BACKENDS': (
+        #'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    )
+}
+MEDIA_ROOT =  os.path.join(settings.BASE_DIR, 'media')
+MEDIA_URL = '/media/'
