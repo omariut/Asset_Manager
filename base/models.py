@@ -25,3 +25,6 @@ class HandOverTypeChoices(models.TextChoices):
     RETURN_TO_ADMIN = 'return_to_admin', ('return_to_admin')
     HANDOVER_TO_EMPLOYEE='handover_to_employee',('handover_to_employee')
 
+class OwnerChoices(models.TextChoices):
+    ADMIN = 'admin', ('admin')
+    EMPLOYEE='employee',('employee')

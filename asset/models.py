@@ -1,5 +1,5 @@
 from django.db import models
-from base.models import BaseModel,ConditionChoices,HandOverTypeChoices
+from base.models import BaseModel,ConditionChoices,HandOverTypeChoices,OwnerChoices
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -24,7 +24,8 @@ class Asset(BaseModel):
     name=models.CharField(max_length=100)
     category=models.ForeignKey('asset.Category', on_delete=models.RESTRICT)
     condition=models.CharField(max_length=20,choices=ConditionChoices.choices)
-    note=models.TextField()
+    note=models.TextField(blank=True,null=True)
+    belongs_to=models.CharField(max_length=20,choices=OwnerChoices.choices,default='admin')
 
     class Meta:
         ordering = ['-created_at']
@@ -41,7 +42,6 @@ class HandOverOrReturn(BaseModel):
     condition=models.CharField(max_length=20,choices=ConditionChoices.choices)
     employee=models.ForeignKey('employee.Employee', on_delete=models.RESTRICT)
     admin=models.ForeignKey(User, on_delete=models.RESTRICT,related_name='admin')
-    handover_or_return=models.CharField(max_length=20,choices=HandOverTypeChoices.choices)
     handover_date=models.DateField()
     
     class Meta:

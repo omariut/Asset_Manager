@@ -37,10 +37,10 @@ schema_view = get_schema_view(
 )
 v1_patterns = [
     #path('api-auth/', include('rest_framework.urls')),
-    path('company/', include('company.urls')),
-    path('employee/', include('employee.urls')),
-    path('asset/', include('employee.urls')),
-    path('user/', include('user.urls')),
+    path('companies/', include('company.urls')),
+    path('employees/', include('employee.urls')),
+    path('assets/', include('asset.urls')),
+    path('users/', include('user.urls')),
 ]
 
 
