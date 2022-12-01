@@ -13,14 +13,17 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
-
+from rest_framework.exceptions import APIException
 from user.helpers import create_tokens
 from user.models import User
 from user.serializers import UserSerializer, UserTokenSerializer
 from user.utils import delete_cache, get_cache, set_cache
 
 logger = logging.getLogger('django')
-
+class UnprocessableEntity(APIException):
+    status_code = 406
+    default_code = 406
+    default_detail = 'unprocessable entity'
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -46,15 +49,6 @@ def registration(request: Request) -> Response:
             raise UnprocessableEntity(
                 detail='contact already exists', code=status.HTTP_406_NOT_ACCEPTABLE)
         user.save()
-        if not settings.DEBUG:
-            otp = random.randint(10000, 99999)
-        else:
-            otp = 99999
-        logger.info(f'your otp is {otp}')
-        if not set_cache(key=f'{user.username}_otp', value=str(otp), ttl=300):
-            raise ValidationError(detail='otp not set',
-                                  code=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        send_sms(username=username, message=f'your otp is {otp}')
         return Response(data={'data': UserSerializer(user).data}, status=status.HTTP_201_CREATED)
 
 

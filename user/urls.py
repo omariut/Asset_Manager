@@ -1,5 +1,4 @@
 from django.urls import path
-from rest_framework_simplejwt import views as jwt_views
 from user.views import (
     registration, 
     login, 
@@ -7,7 +6,7 @@ from user.views import (
 )
 urlpatterns = [
     path('', registration, name='user-registration-api'),
-    path('/login', login, name='user-login-api'),
+    path('login', login, name='user-login-api'),
 
 
 ]
