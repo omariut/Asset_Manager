@@ -1,0 +1,1 @@
+{"id":"f464f442-34af-4f37-9979-6348cca269c5","name":"Asset Manager","values":[{"key":"BASE_URL","value":"http://127.0.0.1:8000/api/v1.0","enabled":true,"type":"default"},{"key":"token","value":"","enabled":true,"type":"default"}]}
