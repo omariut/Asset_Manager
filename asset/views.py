@@ -49,8 +49,11 @@ class HandOverOrReturnListCreateAPIView(generics.ListCreateAPIView):
             asset=handover.asset
             if asset.belongs_to=='admin':
                 asset.belongs_to='employee'
+                handover.transfer_to='employee'
             else:
                 asset.belongs_to='admin'
+                handover.transfer_to='admin'
+            handover.save()
             asset.condition=condition
             asset.save()
             

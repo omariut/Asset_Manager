@@ -43,6 +43,7 @@ class HandOverOrReturn(BaseModel):
     employee=models.ForeignKey('employee.Employee', on_delete=models.RESTRICT)
     admin=models.ForeignKey(User, on_delete=models.RESTRICT,related_name='admin')
     handover_date=models.DateField()
+    transfer_to=models.CharField(max_length=20,choices=OwnerChoices.choices,default='admin')
     
     class Meta:
         ordering = ['-created_at']
@@ -53,5 +54,4 @@ class HandOverOrReturn(BaseModel):
 
     def __str__(self):
         return self.asset.name
-
 
