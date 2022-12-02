@@ -55,6 +55,7 @@ class HandOverOrReturn(BaseModel):
         max_length=20, choices=OwnerChoices.choices, default="admin"
     )
     return_date = models.DateField(null=True, blank=True)
+    note = models.TextField(null=True, blank=True)
 
     class Meta:
         ordering = ["-created_at"]

@@ -88,3 +88,12 @@ class HandOverOrReturnRetrieveUpdateDestroyAPIView(
     permission_classes = (IsAuthenticated,)
     serializer_class = HandOverOrReturnSerializer
     queryset = HandOverOrReturn.objects.filter()
+
+class HandOverHistoryAPIView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = HandOverOrReturnSerializer
+    
+    def get_queryset(self):
+        asset_id=self.kwargs.get("pk")
+        return HandOverOrReturn.objects.filter(asset_id=asset_id)
+    
